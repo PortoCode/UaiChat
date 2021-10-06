@@ -4,10 +4,10 @@ const USERS_LIST_TOPIC_PREFIX = 'users';
 const USERS_LIST_TOPIC = USERS_LIST_TOPIC_PREFIX + '/#';
 const CHAT_ROOM_TOPIC = 'chat';
 
-// Target MQTT.Cool address.
+// Endereço MQTT.Cool de destino
 const MQTT_COOL_URL = 'http://localhost:8080';
 
-// Default MQTT broker to connect to.
+// Broker MQTT padrão para se conectar
 const DEFAULT_BROKER_HOST = 'broker.mqtt.cool';
 const DEFAULT_BROKER_PORT = '1883';
 
@@ -25,7 +25,7 @@ const MSG_LEVEL_STYLE = {
   SUCCESS: 'text-success'
 };
 
-/* Entry point. */
+/* Ponto de entrada */
 $(function() {
   $('#brokerHost').val(DEFAULT_BROKER_HOST);
   $('#brokerPort').val(DEFAULT_BROKER_PORT);
@@ -44,7 +44,7 @@ $(function() {
 });
 
 /**
- * Connects to the MQTT.Cool server hosted at the provided url
+ * Conecta o servidor MQTT.Cool hospedado na URL fornecida
  */
 function connectToMQTTCool(mqttCoolUrl) {
   showMessage(MSG_LEVEL_STYLE.INFO, 'Conectando ao servidor MQTT...');
@@ -108,8 +108,8 @@ function makeUrlBroker() {
 function connectToBroker(urlBroker, user, mqttCoolSession) {
   const clientId = user + '_' + new Date().getTime().toString(36);
 
-  // Configure a new MQTT client and connect to the MQTT broker hosted at the
-  // provider url.
+  // Configura um novo cliente MQTT e conecta ao broker MQTT hospedado na 
+  // URL do provedor
   const mqttClient = setupMqttClient(urlBroker, clientId, mqttCoolSession);
 
   showMessage(MSG_LEVEL_STYLE.INFO, 'Conectando ao MQTT broker na '
@@ -137,11 +137,11 @@ function setupMqttClient(urlBroker, myClientId, mqttCoolSession) {
   };
 
   mqttClient.onMessageArrived = function(message) {
-    // Upon receiving a "presence" message.
+    // Ao receber uma mensagem de "presença"
     if (message.destinationName.startsWith(USERS_LIST_TOPIC_PREFIX)) {
       handlePresence(message, myClientId);
     } else if (message.destinationName === CHAT_ROOM_TOPIC) {
-      // Upon receiving a "chat" message.
+      // Ao receber uma mensagem de "bate-papo"
       handleChatMessage(message, myClientId);
     }
   };
@@ -162,7 +162,7 @@ function setupMqttClient(urlBroker, myClientId, mqttCoolSession) {
     enableUserMessage(mqttClient, myClientId);
   };
 
-  // Called when the client loses its connection.
+  // Chamado quando o cliente perde a conexão
   mqttClient.onConnectionLost = function(response) {
     connectionLost(response, urlBroker, mqttCoolSession, myClientId);
   };
@@ -323,7 +323,7 @@ function updateUsersList(decodedUser, isMe) {
     .append($('<i>').addClass(userIconClass).addClass('mr-1'))
     .append(decodedUser.username + userTextSuffix);
 
-  // Insert the icon relative to this user at the beginning.
+  // Insere o ícone relativo a este usuário no início
   if (isMe) {
     $('#usersList').prepend(newUser);
   } else {
