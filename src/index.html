@@ -37,10 +37,10 @@
           </div>
 
           <div class="col-6 p-0 d-flex flex-row justify-content-end input-group">
-            <input type="text" class="form-control" id="user" placeholder="Choose a nickname" disabled required/>
+            <input type="text" class="form-control" id="user" placeholder="Qual o seu nome?" disabled required/>
             <div class="input-group-append">
-              <button id="connectBtn" type="button" class="btn btn-primary" disabled>Connect</button>
-              <button id="disconnectBtn" type="button" class="btn btn-secondary" disabled>Disconnect</button>
+              <button id="connectBtn" type="button" class="btn btn-primary" disabled>Conectar</button>
+              <button id="disconnectBtn" type="button" class="btn btn-secondary" disabled>Desconectar</button>
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@
     <div class="row m-2" id="chat">
       <!-- Users container -->
       <div class="card col-2 p-0">
-        <div class="card-header p-1">Connected Users</div>
+        <div class="card-header p-1">Usuários conectados</div>
         <div id='usersListCard' class="card-body p-1">
           <ul id="usersList" class="list-group mh-100"></ul>
           </ul>
@@ -61,7 +61,7 @@
       <!-- Messages container -->
       <div class="card col-10 p-0">
         <div class="card-header p-1 d-flex justify-content-between">
-          <p class="m-0">Messages</p>
+          <p class="m-0">Mensagens</p>
           <button id="clearMessages" class="p-0 btn btn-secondary btn-sm far fa-trash-alt"/>
         </div>
         <div id="messages" class="card-body p-1">
@@ -73,9 +73,9 @@
     <!-- Send message container -->
     <div class="row m-2">
       <div class="col-12 input-group p-0">
-        <input type="text" class="form-control" disabled id="sendMessage" placeholder="Write message...">
+        <input type="text" class="form-control" disabled id="sendMessage" placeholder="Escreva uma mensagem...">
         <div class="input-group-append">
-          <button id="replyBtn" class="btn btn-outline-primary" disabled type="submit">Reply</button>
+          <button id="replyBtn" class="btn btn-outline-primary" disabled type="submit">Enviar</button>
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ $(function() {
  * Connects to the MQTT.Cool server hosted at the provided url
  */
 function connectToMQTTCool(mqttCoolUrl) {
-  showMessage(MSG_LEVEL_STYLE.INFO, 'Connecting to the MQTT.Cool server...');
+  showMessage(MSG_LEVEL_STYLE.INFO, 'Conectando ao servidor MQTT...');
   mqttcool.openSession(mqttCoolUrl, 'demouser', '', {
 
     onConnectionFailure: function(errType, errCode, errMessage) {
@@ -67,14 +67,14 @@ function onMqttCoolFailure(errType, errCode, errMessage) {
 }
 
 function close() {
-  showMessage(MSG_LEVEL_STYLE.INFO, 'Exited');
+  showMessage(MSG_LEVEL_STYLE.INFO, 'Saiu');
   disableDisconnection();
   disableUserMessage();
   enableLogin();
 }
 
 function onMqttCoolSuccess(mqttCoolSession) {
-  showMessage(MSG_LEVEL_STYLE.SUCCESS, 'Connected to the MQTT.Cool server');
+  showMessage(MSG_LEVEL_STYLE.SUCCESS, 'Conectado ao servidor MQTT');
   enableLogin();
   $('#connectBtn').click(function() {
     handleConnectionBtn(mqttCoolSession);
@@ -112,7 +112,7 @@ function connectToBroker(urlBroker, user, mqttCoolSession) {
   // provider url.
   const mqttClient = setupMqttClient(urlBroker, clientId, mqttCoolSession);
 
-  showMessage(MSG_LEVEL_STYLE.INFO, 'Connecting to the MQTT broker at '
+  showMessage(MSG_LEVEL_STYLE.INFO, 'Conectando ao MQTT broker na '
     + urlBroker + '...');
   mqttClient.connect({
     onSuccess: function() {
@@ -147,15 +147,15 @@ function setupMqttClient(urlBroker, myClientId, mqttCoolSession) {
   };
 
   mqttClient.onReconnectionStart = function() {
-    showMessage(MSG_LEVEL_STYLE.INFO, 'Re-establishing connection to the '
-      + 'MQTT.Cool server...');
+    showMessage(MSG_LEVEL_STYLE.INFO, 'Reconectando ao servidor '
+      + 'MQTT...');
     disableDisconnection();
     disableUserMessage();
   };
 
   mqttClient.onReconnectionComplete = function() {
-    showMessage(MSG_LEVEL_STYLE.SUCCESS, 'Reconnected to the MQTT.Cool server');
-    showMessage(MSG_LEVEL_STYLE.SUCCESS, 'Reconnected to the MQTT broker at '
+    showMessage(MSG_LEVEL_STYLE.SUCCESS, 'Reconectado ao servidor MQTT');
+    showMessage(MSG_LEVEL_STYLE.SUCCESS, 'Reconectado ao broker MQTT na '
       + urlBroker);
     sendPresence(mqttClient, myClientId);
     enableDisconnection(mqttClient, myClientId);
@@ -175,7 +175,7 @@ function handlePresence(message, myClientId) {
   const user = decodeUser(encodedUser);
   if (!message.payloadString) {
     $('#' + user.clientId).remove();
-    showMessage(MSG_LEVEL_STYLE.INFO, user.username + ' has left the chat');
+    showMessage(MSG_LEVEL_STYLE.INFO, user.username + ' deixou o chat');
   } else {
     const isMe = user.clientId === myClientId;
     showNewLoggedUser(user, isMe, message.payloadString);
@@ -193,7 +193,7 @@ function connectionLost(response, urlBroker, mqttCoolSession, myClientId) {
   switch (response.errorCode) {
     case 0:
       const user = decodeUser(myClientId);
-      showUserMessage(user, true, 'has disconnected');
+      showUserMessage(user, true, 'se desconectou');
       break;
     case 12:
       showMessage(MSG_LEVEL_STYLE.WARN, response.errorMessage);
@@ -201,12 +201,12 @@ function connectionLost(response, urlBroker, mqttCoolSession, myClientId) {
     default:
       showMessage(MSG_LEVEL_STYLE.ERROR, response.errorMessage);
   }
-  showMessage(MSG_LEVEL_STYLE.INFO, 'Connection to ' + urlBroker + ' lost');
+  showMessage(MSG_LEVEL_STYLE.INFO, 'Conecção perdida com ' + urlBroker);
   close();
 }
 
 function connected(urlBroker, mqttClient, myClientId) {
-  showMessage(MSG_LEVEL_STYLE.SUCCESS, 'Connected to the MQTT broker at '
+  showMessage(MSG_LEVEL_STYLE.SUCCESS, 'Conectado ao MQTT broker na '
     + urlBroker);
 
   mqttClient.subscribe(CHAT_ROOM_TOPIC);
@@ -300,7 +300,7 @@ function showNewLoggedUser(decodedUser, isMe, presenceMessagePayload) {
   const now = new Date().getTime();
   if ((now - connectTimestamp) <= 10 * 1000) {
     showMessage(MSG_LEVEL_STYLE.INFO, decodedUser.username
-      + ' has joined the chat');
+      + ' se juntou ao chat');
   }
 }
 
